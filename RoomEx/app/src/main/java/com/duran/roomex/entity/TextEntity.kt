@@ -1,9 +1,8 @@
-package com.duran.roomex
+package com.duran.roomex.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
 @Entity(tableName = "text_table")
 data class TextEntity (
 

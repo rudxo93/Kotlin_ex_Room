@@ -1,14 +1,19 @@
-package com.duran.roomex
+package com.duran.roomex.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.duran.roomex.dao.TextDao
+import com.duran.roomex.dao.WordDao
+import com.duran.roomex.entity.TextEntity
+import com.duran.roomex.entity.WordEntity
 
-@Database(entities = [TextEntity::class], version = 1)
+@Database(entities = [TextEntity::class, WordEntity::class], version = 2)
 abstract class TextDatabase : RoomDatabase() {
 
     abstract fun textDao() : TextDao
+    abstract fun wordDao() : WordDao
 
     companion object {
         @Volatile

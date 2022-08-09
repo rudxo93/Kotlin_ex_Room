@@ -5,6 +5,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.duran.roomex.db.TextDatabase
+import com.duran.roomex.entity.TextEntity
+import com.duran.roomex.entity.WordEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,6 +18,10 @@ Room
 Room에 관한 공식 문서
 https://developer.android.com/training/data-storage/room?hl=ko
 https://developer.android.com/codelabs/android-room-with-a-view-kotlin?hl=ko#5
+
+Dispatchers(사전적 의미 : 디스패처, 배차원, 발차원, 조차원 / 스레드를 어떻게 배차할것인가)
+Dispatchers에 관한 공식 문서
+https://developer.android.com/kotlin/coroutines/coroutines-adv?hl=ko
 */
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
             CoroutineScope(Dispatchers.IO).launch {
                 db.textDao().insert(TextEntity(0, inputArea.text.toString()))
+                db.wordDao().insert(WordEntity(0, inputArea.text.toString()))
                 inputArea.setText("")
             }
 
@@ -42,14 +50,15 @@ class MainActivity : AppCompatActivity() {
         getAllBtn.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 Log.d("MAINACTIVITY", db.textDao().getAllData().toString())
+                Log.d("MAINACTIVITY", db.wordDao().getAllData().toString())
             }
         }
 
         deleteBtn.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 db.textDao().deleteAllData()
+                db.wordDao().deleteAllData()
             }
         }
-
     }
 }
