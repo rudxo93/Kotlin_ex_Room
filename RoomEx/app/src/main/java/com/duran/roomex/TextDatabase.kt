@@ -8,16 +8,16 @@ import androidx.room.RoomDatabase
 @Database(entities = [TextEntity::class], version = 1)
 abstract class TextDatabase : RoomDatabase() {
 
-    abstract fun textDao(): TextDao
+    abstract fun textDao() : TextDao
 
     companion object {
         @Volatile
-        private var INSTANCE: TextDatabase? = null
+        private var INSTANCE : TextDatabase? = null
 
         fun getDatabase(
-            context: Context
-        ): TextDatabase {
-            return INSTANCE ?: synchronized(this) {
+            context : Context
+        ) : TextDatabase {
+            return INSTANCE ?: synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TextDatabase::class.java,
