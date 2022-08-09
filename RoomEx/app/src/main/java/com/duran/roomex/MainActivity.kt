@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.duran.roomex.db.TextDatabase
 import com.duran.roomex.entity.TextEntity
 import com.duran.roomex.entity.WordEntity
@@ -26,9 +27,14 @@ https://developer.android.com/kotlin/coroutines/coroutines-adv?hl=ko
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.getData()
 
         val db = TextDatabase.getDatabase(this)
 
@@ -38,27 +44,22 @@ class MainActivity : AppCompatActivity() {
         val deleteBtn = findViewById<Button>(R.id.delete)
 
         insertBtn.setOnClickListener {
-
-            CoroutineScope(Dispatchers.IO).launch {
-                db.textDao().insert(TextEntity(0, inputArea.text.toString()))
-                db.wordDao().insert(WordEntity(0, inputArea.text.toString()))
-                inputArea.setText("")
-            }
-
+            viewModel.insertData(inputArea.text.toString())
+            inputArea.setText("")
         }
 
         getAllBtn.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                Log.d("MAINACTIVITY", db.textDao().getAllData().toString())
-                Log.d("MAINACTIVITY", db.wordDao().getAllData().toString())
-            }
+            viewModel.getData()
         }
 
         deleteBtn.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                db.textDao().deleteAllData()
-                db.wordDao().deleteAllData()
-            }
+            viewModel.removeData()
         }
+
+
+
+
+
+
     }
 }
