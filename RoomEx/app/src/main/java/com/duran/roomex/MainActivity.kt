@@ -27,6 +27,9 @@ https://developer.android.com/codelabs/android-room-with-a-view-kotlin?hl=ko#5
 Dispatchers(사전적 의미 : 디스패처, 배차원, 발차원, 조차원 / 스레드를 어떻게 배차할것인가)
 Dispatchers에 관한 공식 문서
 https://developer.android.com/kotlin/coroutines/coroutines-adv?hl=ko
+
+안드로이드 권장 앱 아키텍처에 관한 공식 문서
+https://developer.android.com/training/dependency-injection/manual?hl=ko
 */
 
 class MainActivity : AppCompatActivity() {
