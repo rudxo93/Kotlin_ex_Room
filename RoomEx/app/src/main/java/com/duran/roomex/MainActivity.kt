@@ -5,7 +5,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.duran.roomex.adapter.CustomAdapter
 import com.duran.roomex.db.TextDatabase
 import com.duran.roomex.entity.TextEntity
 import com.duran.roomex.entity.WordEntity
@@ -48,6 +52,14 @@ class MainActivity : AppCompatActivity() {
             inputArea.setText("")
         }
 
+        val rv = findViewById<RecyclerView>(R.id.rv)
+
+        viewModel.textList.observe(this, Observer {
+            val customAdapter = CustomAdapter(it)
+            rv.adapter = customAdapter
+            rv.layoutManager = LinearLayoutManager(this)
+        })
+
         getAllBtn.setOnClickListener {
             viewModel.getData()
         }
@@ -55,11 +67,6 @@ class MainActivity : AppCompatActivity() {
         deleteBtn.setOnClickListener {
             viewModel.removeData()
         }
-
-
-
-
-
 
     }
 }
